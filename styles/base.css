@@ -3,25 +3,74 @@
 @import url('fonts.css');
 
 * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     color: whitesmoke;
 }
 
 body {
     background-image: url("/styles/images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .card-container {
     width: 90%;
-    height: 100vh;
+    margin-top: 30pt;
     margin-left: auto;
     margin-right: auto;
     padding: 15px 25px;
 
     /* From https://css.glass */
-    background: rgba(0, 0, 0, 0.19);
-    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(17px);
-    -webkit-backdrop-filter: blur(17px);
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.active-task {
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 50px     ;
+}
+
+.complete-button {
+    padding: 5px;
+    font-size: 1.3em;
+}
+
+.fa-check {
+    color: var(--licorice);
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-information {
+    font-size: 1.2rem;
+    color: var(--licorice);
+    flex-grow: 2;
+    text-align: center;
+}
+
+.fa-trash-can {
+    color: var(--licorice);
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+}
+
+.delete-button {
+    padding: 5px;
 }
