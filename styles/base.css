@@ -7,6 +7,8 @@
     margin: 0;
     padding: 0;
     color: whitesmoke;
+    transition: 0.3s all;
+    text-transform: uppercase;
 }
 
 body {
