@@ -79,3 +79,24 @@ body {
 .delete-button {
     padding: 5px;
 }
+
+/* ******************   Add new task container  ******************** */
+
+
+
+.add-task-button {
+    padding: 12px 20px;
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    color: var(--licorice);
+    font-size: 1.6rem;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 80px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
