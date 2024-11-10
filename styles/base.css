@@ -65,15 +65,15 @@ body {
 }
 
 .task-title {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: var(--licorice);
     flex-grow: 2;
-    text-align: center;
     border-bottom: 1px solid var(--licorice);
+    text-align: start;
 }
 
 .task-description {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--licorice);
     flex-grow: 2;
     text-align: center;
