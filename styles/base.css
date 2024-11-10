@@ -103,6 +103,12 @@ body {
     justify-content: space-between;
 }
 
+.close-button {
+    background: none;
+    border: none;
+    color: var(--licorice);
+    font-size: 1.5rem;
+}
 
 
 .add-task-button {
