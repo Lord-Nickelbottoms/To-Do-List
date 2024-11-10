@@ -97,6 +97,11 @@ body {
 }
 
 /* ******************   Add new task container  ******************** */
+.add-task-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 
 
