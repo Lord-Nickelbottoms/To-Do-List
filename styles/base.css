@@ -81,7 +81,7 @@ button:hover, button i:hover {
 .task-information {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .task-title {
@@ -89,14 +89,15 @@ button:hover, button i:hover {
     color: var(--licorice);
     flex-grow: 2;
     border-bottom: 1px solid var(--licorice);
-    text-align: start;
+    text-align: center;
+    font-weight: bold;
 }
 
 .task-description {
     font-size: 0.8rem;
     color: var(--licorice);
     flex-grow: 2;
-    text-align: center;
+    text-align: start;
 }
 
 .fa-trash-can {
