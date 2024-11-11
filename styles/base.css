@@ -97,7 +97,7 @@ button:hover, button i:hover {
     font-size: 0.8rem;
     color: var(--licorice);
     flex-grow: 2;
-    text-align: start;
+    text-align: center;
 }
 
 .fa-trash-can {
