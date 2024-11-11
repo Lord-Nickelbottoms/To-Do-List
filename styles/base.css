@@ -26,6 +26,10 @@ input {
     color: whitesmoke;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 /* ************   Classes   ************* */
 
 .card-container {
@@ -107,6 +111,16 @@ input {
 }
 
 /* ******************   Add new task container  ******************** */
+#addTaskWindow {
+    display: none;
+    position: fixed;
+    width: 90%;
+
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .add-task-header {
     display: flex;
     flex-direction: row;
@@ -133,7 +147,7 @@ input {
     padding: 5px 0;
 }
 
-#create-button {
+#createButton {
     margin-left: auto;
     margin-top: 10px;
     padding: 8px 10px;
@@ -164,4 +178,8 @@ input {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.add-task-button:hover {
+    background: rgba(255, 255, 255, 0.76);
 }

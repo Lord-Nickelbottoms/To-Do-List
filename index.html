@@ -12,82 +12,86 @@
 
     <h1>To-Do</h1>
 
-    <!-- Active Task List Card -->
-    <div class="card-container">
+    <div class="task-lists" id="taskList">
 
-        <h2>Active Tasks</h2>
+        <!-- Active Task List Card -->
+        <div class="card-container">
 
-        <div class="active-task-list">
+            <h2>Active Tasks</h2>
 
-            <div class="task active-task">
+            <div class="active-task-list">
 
-                <div class="complete-button">
-                    <i class="fa-solid fa-check"></i>
+                <div class="task active-task">
+
+                    <div class="complete-button">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <div class="task-information">
+                        <p class="task-title">Take out the trash</p>
+                        <p class="task-description">Completed</p>
+                    </div>
+
+                    <div class="delete-button">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
                 </div>
 
-                <div class="task-information">
-                    <p class="task-title">Take out the trash</p>
-                    <p class="task-description">Completed</p>
+                <div class="task active-task">
+
+                    <div class="complete-button">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <p class="task-information">Take out the trash</p>
+
+                    <div class="delete-button">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
                 </div>
 
-                <div class="delete-button">
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-            </div>
-
-            <div class="task active-task">
-
-                <div class="complete-button">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-
-                <p class="task-information">Take out the trash</p>
-
-                <div class="delete-button">
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
             </div>
 
         </div>
 
-    </div>
+        <!-- Complete Task List Card -->
+        <div class="card-container">
 
-    <!-- Complete Task List Card -->
-    <div class="card-container">
+            <h2>Completed Tasks</h2>
 
-        <h2>Completed Tasks</h2>
+            <div class="completed-task-list">
 
-        <div class="completed-task-list">
+                <div class="task completed-task">
 
-            <div class="task completed-task">
+                    <div class="undo-button">
+                        <i class="fa-solid fa-arrow-rotate-left undo"></i>
+                    </div>
 
-                <div class="undo-button">
-                    <i class="fa-solid fa-arrow-rotate-left undo"></i>
+                    <p class="task-information">Take out the trash</p>
+
                 </div>
 
-                <p class="task-information">Take out the trash</p>
+                <div class="task completed-task">
 
-            </div>
+                    <div class="undo-button">
+                        <i class="fa-solid fa-arrow-rotate-left undo"></i>
+                    </div>
 
-            <div class="task completed-task">
+                    <p class="task-information">Take out the trash</p>
 
-                <div class="undo-button">
-                    <i class="fa-solid fa-arrow-rotate-left undo"></i>
                 </div>
-
-                <p class="task-information">Take out the trash</p>
-
             </div>
+
         </div>
 
     </div>
 
     <!-- Component to add a new task  -->
-    <div class="card-container" id="add-task-window">
+    <div class="card-container add-task-card-container" id="addTaskWindow">
 
         <div class="add-task-header">
             <h2>Add a new task</h2>
-            <button class="close-button">&times;</button>
+            <button class="close-button" id="closeButton">&times;</button>
         </div>
 
         <form action="" method="post" class="add-task-container">
@@ -102,11 +106,12 @@
                 <input type="text" id="description" name="description" placeholder="Task Description">
             </div>
 
-            <button type="submit" id="create-button">Create</button>
+            <button type="submit" id="createButton">Create</button>
         </form>
     </div>
 
     <button class="add-task-button" id="newTask">+</button>
 
+    <script src="scripts/add-new-task-window-script.js"></script>
 </body>
 </html>
