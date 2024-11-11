@@ -16,7 +16,7 @@ let taskTitle = document.getElementById("title")
 let taskDescription = document.getElementById("description")
 
 document.getElementById('createButton').addEventListener('click', () => {
-    if (taskTitle.innerText !== "") {
+    if (taskTitle.value !== "") {
         addTask(taskTitle.value.toString(), taskDescription.value.toString())
         localStorage.setItem(taskTitle.value.toString(), taskDescription.value.toString())
     } else {
