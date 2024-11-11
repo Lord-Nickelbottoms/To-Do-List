@@ -1,12 +1,23 @@
+let completedTasks = [];
+let activeTasks = [];
+
+
+let completeList = {}
+
 window.addEventListener('DOMContentLoaded', () => {
     console.log("task-list-script loaded");
     
+    // load from storage or server
     if (localStorage.length !== 0) {
-        for (let i = 0; i < localStorage.length; i++) {
-            addTask(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
+        for (let i = 0; i < localStorage.length - 1; i++) {
+            // activeTasks.push(JSON.stringify(localStorage.getItem(localStorage.key(i))));
+            localStorage.removeItem("");
+            localStorage.removeItem(null);
+
+            activeTasks = JSON.parse(localStorage.getItem(localStorage.key(i)))
+            
+            displayActiveList(activeTasks[i]["title"], activeTasks[i]["description"]);
         }
-    } else {
-        console.log("localStorage empty")
     }
 })
 
@@ -24,8 +35,28 @@ document.getElementById('createButton').addEventListener('click', () => {
     }
 })
 
-// add UI elements for task item
 function addTask(title, description) {
+
+    let activeList = {
+        "title": title,
+        "description": description,
+        "status": "active"
+    }
+
+    // activeTasks.push(activeList)
+    // activeTasks.push(activeList)
+
+    // change to POST when backend is integrated
+    for (let i = 0; i <= activeTasks.length; i++) {
+        localStorage.setItem(`item${i}`, JSON.stringify(activeTasks));
+    }
+
+    clearTextFields()
+    displayActiveList(activeList)
+}
+
+// add UI elements for task item
+function displayActiveList(title, description) {
     const activeTask = document.createElement('div')
     activeTask.classList.add('task')
     activeTask.classList.add('active-task')
@@ -68,8 +99,6 @@ function addTask(title, description) {
     
     deleteButton.appendChild(deleteIcon)
     activeTask.appendChild(deleteButton)
-    
-    clearTextFields()
 }
 
 function clearTextFields() {
