@@ -69,3 +69,9 @@ function addTask(title, description) {
     deleteButton.appendChild(deleteIcon)
     activeTask.appendChild(deleteButton)
 }
+
+function clearTextFields() {
+    taskTitle.innerText = ""
+    taskDescription.innerText = ""
+}
+
