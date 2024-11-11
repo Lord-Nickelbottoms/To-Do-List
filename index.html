@@ -19,35 +19,35 @@
 
             <h2>Active Tasks</h2>
 
-            <div class="active-task-list">
+            <div class="active-task-list" id="activeTaskList">
 
                 <div class="task active-task">
 
-                    <div class="complete-button">
+                    <button class="complete-button">
                         <i class="fa-solid fa-check"></i>
-                    </div>
+                    </button>
 
                     <div class="task-information">
                         <p class="task-title">Take out the trash</p>
                         <p class="task-description">Completed</p>
                     </div>
 
-                    <div class="delete-button">
+                    <button class="delete-button">
                         <i class="fa-solid fa-trash-can"></i>
-                    </div>
+                    </button>
                 </div>
 
                 <div class="task active-task">
 
-                    <div class="complete-button">
+                    <button class="complete-button">
                         <i class="fa-solid fa-check"></i>
-                    </div>
+                    </button>
 
                     <p class="task-information">Take out the trash</p>
 
-                    <div class="delete-button">
+                    <button class="delete-button">
                         <i class="fa-solid fa-trash-can"></i>
-                    </div>
+                    </button>
                 </div>
 
             </div>
@@ -63,9 +63,9 @@
 
                 <div class="task completed-task">
 
-                    <div class="undo-button">
+                    <button class="undo-button">
                         <i class="fa-solid fa-arrow-rotate-left undo"></i>
-                    </div>
+                    </button>
 
                     <p class="task-information">Take out the trash</p>
 
@@ -73,9 +73,9 @@
 
                 <div class="task completed-task">
 
-                    <div class="undo-button">
+                    <button class="undo-button">
                         <i class="fa-solid fa-arrow-rotate-left undo"></i>
-                    </div>
+                    </button>
 
                     <p class="task-information">Take out the trash</p>
 
@@ -106,7 +106,7 @@
                 <input type="text" id="description" name="description" placeholder="Task Description">
             </div>
 
-            <button type="submit" id="createButton">Create</button>
+            <button type="button" id="createButton">Create</button>
         </form>
     </div>
 
