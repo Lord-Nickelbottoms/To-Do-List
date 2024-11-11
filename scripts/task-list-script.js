@@ -82,3 +82,7 @@ function clearTextFields() {
     closeAddTaskWindow()
 }
 
+function closeAddTaskWindow() {
+    document.getElementById("addTaskWindow").style.display = "none"
+    taskListWindows.style.display = "block"
+}
