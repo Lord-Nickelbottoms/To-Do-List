@@ -11,21 +11,13 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log("task-list-script loaded");
     
     // load from storage or server
-    // if (!Array.isArray(activeTasks) || !activeTasks.length) {
-        console.log("List is empty")
-        getList()
-        for (let item of activeTasks) {
-            displayActiveList(item[item].title, item[item].description);
-        }
-    console.log(activeTasks);
-        // for (let i = 0; i <= activeTasks.length; i++) {
-        //     displayActiveList(activeTasks[i].title, activeTasks[i].description);
-        //     console.log("fetch")
-        // }
+
+    if (!Array.isArray(activeTasks) || !activeTasks.length) {
         // array does not exist, is not an array, or is empty
         // ⇒ do not attempt to process array
-    // }
-
+        console.log("List is empty")
+        getList()
+    }
 })
 
 // **********************           CREATE BUTTON            ******************************* //
@@ -36,8 +28,6 @@ document.getElementById('createButton').addEventListener('click', () => {
         if (localStorage.length > 0) {
             indexId = localStorage.length - 1
         }
-
-        // indexId++
         
         addTask(taskTitle.value.toString(), taskDescription.value.toString(), indexId)
         localStorage.setItem(taskTitle.value.toString(), taskDescription.value.toString())
@@ -71,50 +61,52 @@ function addTask(list) {
 }
 
 // add UI elements for task item
-function displayActiveList(title, description) {
-    const activeTask = document.createElement('div')
-    activeTask.classList.add('task')
-    activeTask.classList.add('active-task')
-    activeListContainer.appendChild(activeTask)
+function displayActiveList() {
+    for (let i = 0; i < activeTasks.length; i++) {
+        const activeTask = document.createElement('div')
+        activeTask.classList.add('task')
+        activeTask.classList.add('active-task')
+        activeListContainer.appendChild(activeTask)
 
 
-    const completeButton = document.createElement('button')
-    completeButton.classList.add('complete-button')
+        const completeButton = document.createElement('button')
+        completeButton.classList.add('complete-button')
 
-    const completeIcon = document.createElement('i')
-    completeIcon.classList.add('fa-solid')
-    completeIcon.classList.add('fa-check')
+        const completeIcon = document.createElement('i')
+        completeIcon.classList.add('fa-solid')
+        completeIcon.classList.add('fa-check')
 
-    completeButton.appendChild(completeIcon)
-    activeTask.appendChild(completeButton)
-
-
-    const taskInformationContainer = document.createElement('div')
-    taskInformationContainer.classList.add('task-information')
-
-    const taskTitle = document.createElement('p')
-    taskTitle.classList.add('task-title')
-    taskTitle.innerText = title
-
-    const taskDescription = document.createElement('p')
-    taskDescription.classList.add('task-description')
-    taskDescription.innerText = description
-
-    taskInformationContainer.appendChild(taskTitle)
-    taskInformationContainer.appendChild(taskDescription)
-    activeTask.appendChild(taskInformationContainer)
+        completeButton.appendChild(completeIcon)
+        activeTask.appendChild(completeButton)
 
 
-    const deleteButton = document.createElement('button')
-    deleteButton.classList.add('delete-button')
+        const taskInformationContainer = document.createElement('div')
+        taskInformationContainer.classList.add('task-information')
+
+        const taskTitle = document.createElement('p')
+        taskTitle.classList.add('task-title')
+        taskTitle.innerText = activeTasks[i].title
+
+        const taskDescription = document.createElement('p')
+        taskDescription.classList.add('task-description')
+        taskDescription.innerText = activeTasks[i].description
+
+        taskInformationContainer.appendChild(taskTitle)
+        taskInformationContainer.appendChild(taskDescription)
+        activeTask.appendChild(taskInformationContainer)
 
 
-    const deleteIcon = document.createElement('i')
-    deleteIcon.classList.add('fa-solid')
-    deleteIcon.classList.add('fa-trash-can')
+        const deleteButton = document.createElement('button')
+        deleteButton.classList.add('delete-button')
 
-    deleteButton.appendChild(deleteIcon)
-    activeTask.appendChild(deleteButton)
+
+        const deleteIcon = document.createElement('i')
+        deleteIcon.classList.add('fa-solid')
+        deleteIcon.classList.add('fa-trash-can')
+
+        deleteButton.appendChild(deleteIcon)
+        activeTask.appendChild(deleteButton)
+    }
 }
 
 function clearTextFields() {
@@ -151,6 +143,7 @@ function getList() {
 
             // Display data on the webpage
             activeTasks = data
+            displayActiveList()
         })
         .catch(error => {
             console.error('Error fetching data:', error);
