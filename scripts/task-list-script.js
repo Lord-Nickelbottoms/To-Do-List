@@ -1,7 +1,10 @@
+// **********************           DECLARATIONS            ******************************* //
+const activeListContainer = document.getElementById('activeTaskList')
+let taskTitle = document.getElementById("title")
+let taskDescription = document.getElementById("description")
+
 let completedTasks = [];
 let activeTasks = [];
-
-
 let completeList = {}
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -21,11 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 })
 
-const activeListContainer = document.getElementById('activeTaskList')
-
-let taskTitle = document.getElementById("title")
-let taskDescription = document.getElementById("description")
-
+// **********************           CREATE BUTTON            ******************************* //
 document.getElementById('createButton').addEventListener('click', () => {
     if (taskTitle.value !== "") {
         addTask(taskTitle.value.toString(), taskDescription.value.toString())
@@ -34,6 +33,8 @@ document.getElementById('createButton').addEventListener('click', () => {
         alert("Title cannot be empty.\nAdd a title to continue.")
     }
 })
+
+// **********************           DELETE BUTTON           ******************************* //
 
 function addTask(title, description) {
 
