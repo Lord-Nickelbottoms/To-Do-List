@@ -3,57 +3,71 @@ const activeListContainer = document.getElementById('activeTaskList')
 let taskTitle = document.getElementById("title")
 let taskDescription = document.getElementById("description")
 
-let completedTasks = [];
+
 let activeTasks = [];
-let completeList = {}
+let completedTasks = [];
 
 window.addEventListener('DOMContentLoaded', () => {
     console.log("task-list-script loaded");
     
     // load from storage or server
-    if (localStorage.length !== 0) {
-        for (let i = 0; i < localStorage.length - 1; i++) {
-            // activeTasks.push(JSON.stringify(localStorage.getItem(localStorage.key(i))));
-            localStorage.removeItem("");
-            localStorage.removeItem(null);
-
-            activeTasks = JSON.parse(localStorage.getItem(localStorage.key(i)))
-            
-            displayActiveList(activeTasks[i]["title"], activeTasks[i]["description"]);
+    // if (!Array.isArray(activeTasks) || !activeTasks.length) {
+        console.log("List is empty")
+        getList()
+        for (let item of activeTasks) {
+            displayActiveList(item[item].title, item[item].description);
         }
-    }
+    console.log(activeTasks);
+        // for (let i = 0; i <= activeTasks.length; i++) {
+        //     displayActiveList(activeTasks[i].title, activeTasks[i].description);
+        //     console.log("fetch")
+        // }
+        // array does not exist, is not an array, or is empty
+        // ⇒ do not attempt to process array
+    // }
+
 })
 
 // **********************           CREATE BUTTON            ******************************* //
 document.getElementById('createButton').addEventListener('click', () => {
     if (taskTitle.value !== "") {
-        addTask(taskTitle.value.toString(), taskDescription.value.toString())
+        let indexId = 0
+
+        if (localStorage.length > 0) {
+            indexId = localStorage.length - 1
+        }
+
+        // indexId++
+        
+        addTask(taskTitle.value.toString(), taskDescription.value.toString(), indexId)
         localStorage.setItem(taskTitle.value.toString(), taskDescription.value.toString())
+
+        closeAddTaskWindow()
     } else {
         alert("Title cannot be empty.\nAdd a title to continue.")
     }
 })
 
 // **********************           DELETE BUTTON           ******************************* //
+// document.getElementById()
 
-function addTask(title, description) {
+function addTask(list) {
 
     let activeList = {
+        "id": itemNumber,
         "title": title,
         "description": description,
         "status": "active"
     }
 
-    // activeTasks.push(activeList)
-    // activeTasks.push(activeList)
+    console.log(activeTasks)
+    localStorage.removeItem("")
 
-    // change to POST when backend is integrated
-    for (let i = 0; i <= activeTasks.length; i++) {
-        localStorage.setItem(`item${i}`, JSON.stringify(activeTasks));
-    }
+    activeTasks.push(activeList)
+    localStorage.setItem(`item${itemNumber}`, JSON.stringify(activeTasks[itemNumber]))
 
+    closeAddTaskWindow()
     clearTextFields()
-    displayActiveList(activeList)
 }
 
 // add UI elements for task item
@@ -63,7 +77,7 @@ function displayActiveList(title, description) {
     activeTask.classList.add('active-task')
     activeListContainer.appendChild(activeTask)
 
-    
+
     const completeButton = document.createElement('button')
     completeButton.classList.add('complete-button')
 
@@ -73,7 +87,7 @@ function displayActiveList(title, description) {
 
     completeButton.appendChild(completeIcon)
     activeTask.appendChild(completeButton)
-    
+
 
     const taskInformationContainer = document.createElement('div')
     taskInformationContainer.classList.add('task-information')
@@ -89,15 +103,16 @@ function displayActiveList(title, description) {
     taskInformationContainer.appendChild(taskTitle)
     taskInformationContainer.appendChild(taskDescription)
     activeTask.appendChild(taskInformationContainer)
-    
-    
+
+
     const deleteButton = document.createElement('button')
     deleteButton.classList.add('delete-button')
-    
+
+
     const deleteIcon = document.createElement('i')
     deleteIcon.classList.add('fa-solid')
     deleteIcon.classList.add('fa-trash-can')
-    
+
     deleteButton.appendChild(deleteIcon)
     activeTask.appendChild(deleteButton)
 }
@@ -115,4 +130,29 @@ function clearTextFields() {
 function closeAddTaskWindow() {
     document.getElementById("addTaskWindow").style.display = "none"
     taskListWindows.style.display = "block"
+}
+
+// **********************           GET REQUEST            ******************************* //
+function getList() {
+    // Define the API URL
+    const apiUrl = 'http://localhost:3002/get-list';
+
+// Make the API request
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Display the response data in the console
+            console.log('API Response:', data);
+
+            // Display data on the webpage
+            activeTasks = data
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 }
