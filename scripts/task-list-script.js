@@ -3,15 +3,50 @@ const activeListContainer = document.getElementById('activeTaskList')
 let taskTitle = document.getElementById("title")
 let taskDescription = document.getElementById("description")
 
-
 let activeTasks = [];
 let completedTasks = [];
+
+
+// **********************           DOCUMENT/WINDOW EVENTS            ******************************* //
+// var observeDOM = (function() {
+//     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+  
+//     return function(obj, callback) {
+//       if (!obj || obj.nodeType !== 1) {
+//         return;
+//       }
+  
+//       if (MutationObserver) {
+//         // define a new observer
+//         var mutationObserver = new MutationObserver(callback);
+  
+//         // have the observer observe for changes in children
+//         mutationObserver.observe(obj, {childList: true, subtree: true});
+//         return mutationObserver;
+//       } else if (window.addEventListener) { // browser support fallback
+//         obj.addEventListener('DOMNodeInserted', callback, false);
+//         obj.addEventListener('DOMNodeRemoved', callback, false);
+//       }
+//     }
+//   })();
+
+  // Observe a specific DOM element:
+// observeDOM(listEl, function(m) {
+//     var addedNodes = [], removedNodes = [];
+ 
+//     m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes));
+ 
+//     m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes));
+ 
+//     console.clear();
+//     console.log('Added:', addedNodes, 'Removed:', removedNodes);
+//  });
+
 
 window.addEventListener('DOMContentLoaded', () => {
     console.log("task-list-script loaded");
     
     // load from storage or server
-
     if (!Array.isArray(activeTasks) || !activeTasks.length) {
         // array does not exist, is not an array, or is empty
         // ⇒ do not attempt to process array
@@ -29,7 +64,7 @@ document.getElementById('createButton').addEventListener('click', () => {
             indexId = localStorage.length - 1
         }
         
-        addTask(taskTitle.value.toString(), taskDescription.value.toString(), indexId)
+        addTask(indexId, taskTitle.value.toString(), taskDescription.value.toString(), indexId)
         localStorage.setItem(taskTitle.value.toString(), taskDescription.value.toString())
 
         closeAddTaskWindow()
@@ -39,12 +74,63 @@ document.getElementById('createButton').addEventListener('click', () => {
 })
 
 // **********************           DELETE BUTTON           ******************************* //
-// document.getElementById()
+function deleteTask(event, index) {
+    
+    // if (activeTasks[index]) {
+    //     Array.prototype.remove = function() {
+    //         let itemToDelete;
+    //         let funcArguments = arguments;
+    //         L = funcArguments.length;
+    //         let ax;
 
-function addTask(list) {
+    //         while (L && this.length) {
+    //             itemToDelete = funcArguments[--L];
+
+    //             while ( (ax = this.indexOf(itemToDelete)) !== -1 ) {
+    //                 this.splice(ax, 1)
+                    
+    //                 if (event.target.nodeName === "BUTTON") {
+    //                     event.parentNode.removeChild(event.target.parentNode)
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     console.log(`${activeTasks[index]} deleted.`);
+        
+    // }
+
+    // activeTasks.remove(activeTasks[index])
+}
+
+function bindDeleteButtonIndices() {
+    let deleteButtonCollection = document.getElementsByClassName("delete-button")
+
+    for (let index = 0; index < deleteButtonCollection.length; index++) {
+        let button = deleteButtonCollection[index]
+
+        button.addEventListener('click', () => {
+            button.setAttribute('id', `id-${index}`)
+
+            button.addEventListener('click', (event) => {
+                document.getElementById('activeTaskList').removeChild(button.parentNode)
+            })
+
+    //         const activeTaskItemContainer = document.querySelector('.active-task')
+    //         activeTaskItemContainer.addEventListener('click', (event) => {
+            
+    //         if (event.target && event.target.classList.contains('delete-button')) {
+    //             const container = event.target.closest('.active-task')
+    //         }
+    // })
+            // button.setAttribute('onclick', `deleteTask(${event, index})`)
+        })
+    }
+}
+
+function addTask(index, title, description) {
 
     let activeList = {
-        "id": itemNumber,
+        "id": index,
         "title": title,
         "description": description,
         "status": "active"
@@ -54,13 +140,13 @@ function addTask(list) {
     localStorage.removeItem("")
 
     activeTasks.push(activeList)
-    localStorage.setItem(`item${itemNumber}`, JSON.stringify(activeTasks[itemNumber]))
+    localStorage.setItem(`item${index}`, JSON.stringify(activeTasks[index]))
 
     closeAddTaskWindow()
     clearTextFields()
 }
 
-// add UI elements for task item
+// add UI elements for active task item
 function displayActiveList() {
     for (let i = 0; i < activeTasks.length; i++) {
         const activeTask = document.createElement('div')
@@ -127,7 +213,7 @@ function closeAddTaskWindow() {
 // **********************           GET REQUEST            ******************************* //
 function getList() {
     // Define the API URL
-    const apiUrl = 'http://localhost:3002/get-list';
+    const apiUrl = 'http://localhost:3001/get-list';
 
 // Make the API request
     fetch(apiUrl)
@@ -144,6 +230,13 @@ function getList() {
             // Display data on the webpage
             activeTasks = data
             displayActiveList()
+        })
+        .then(data => {
+            for (let index = 0; index < activeTasks.length; index++) {
+                const element = activeTasks[index];
+                console.log(element);
+                bindDeleteButtonIndices(index)
+            }
         })
         .catch(error => {
             console.error('Error fetching data:', error);
