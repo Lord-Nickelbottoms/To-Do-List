@@ -16,6 +16,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-position: center;
 }
 
 input {
@@ -98,6 +99,10 @@ button:hover, button i:hover {
     color: var(--licorice);
     flex-grow: 2;
     text-align: center;
+}
+
+.completed-task-information {
+    flex-grow: 2;
 }
 
 .fa-trash-can {
