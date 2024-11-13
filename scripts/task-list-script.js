@@ -102,27 +102,14 @@ function deleteTask(event, index) {
     // activeTasks.remove(activeTasks[index])
 }
 
-function bindDeleteButtonIndices() {
+function deleteTask() {
     let deleteButtonCollection = document.getElementsByClassName("delete-button")
 
     for (let index = 0; index < deleteButtonCollection.length; index++) {
         let button = deleteButtonCollection[index]
 
         button.addEventListener('click', () => {
-            button.setAttribute('id', `id-${index}`)
-
-            button.addEventListener('click', (event) => {
-                document.getElementById('activeTaskList').removeChild(button.parentNode)
-            })
-
-    //         const activeTaskItemContainer = document.querySelector('.active-task')
-    //         activeTaskItemContainer.addEventListener('click', (event) => {
-            
-    //         if (event.target && event.target.classList.contains('delete-button')) {
-    //             const container = event.target.closest('.active-task')
-    //         }
-    // })
-            // button.setAttribute('onclick', `deleteTask(${event, index})`)
+            activeListContainer.removeChild(button.parentNode)
         })
     }
 }
@@ -140,10 +127,34 @@ function addTask(index, title, description) {
     localStorage.removeItem("")
 
     activeTasks.push(activeList)
-    localStorage.setItem(`item${index}`, JSON.stringify(activeTasks[index]))
+    // localStorage.setItem(`item${index}`, JSON.stringify(activeTasks[index]))
 
     closeAddTaskWindow()
     clearTextFields()
+}
+
+function completeTask() {
+
+    const completedButtonCollection = document.getElementsByClassName('complete-button')
+
+    for (let i = 0; i < completedButtonCollection.length; i++) {
+        const button = completedButtonCollection[i];
+        
+        button.addEventListener('click', () => {
+            activeListContainer.removeChild(button.parentNode)
+        })
+    }
+
+    for (let i = 0; i < activeTasks.length; i++) {
+        const element = activeTasks[i];
+        
+        // if (selectedTask === element) {
+        //     element.status = "completed"
+        //     completedTasks.push(element)
+        //     console.log(element);
+            
+        // }
+    }
 }
 
 // add UI elements for active task item
@@ -193,6 +204,10 @@ function displayActiveList() {
         deleteButton.appendChild(deleteIcon)
         activeTask.appendChild(deleteButton)
     }
+
+    // apply functions to buttons
+    deleteTask()
+    completeTask()
 }
 
 function clearTextFields() {
@@ -235,7 +250,6 @@ function getList() {
             for (let index = 0; index < activeTasks.length; index++) {
                 const element = activeTasks[index];
                 console.log(element);
-                bindDeleteButtonIndices(index)
             }
         })
         .catch(error => {
