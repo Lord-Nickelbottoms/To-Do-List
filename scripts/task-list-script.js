@@ -1,5 +1,6 @@
 // **********************           DECLARATIONS            ******************************* //
 const activeListContainer = document.getElementById('activeTaskList')
+const completeListContainer = document.querySelector('.completed-task-list')
 let taskTitle = document.getElementById("title")
 let taskDescription = document.getElementById("description")
 
@@ -41,9 +42,7 @@ let completedTasks = [];
 //     console.clear();
 //     console.log('Added:', addedNodes, 'Removed:', removedNodes);
 //  });
-
-
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     console.log("task-list-script loaded");
     
     // load from storage or server
@@ -73,47 +72,6 @@ document.getElementById('createButton').addEventListener('click', () => {
     }
 })
 
-// **********************           DELETE BUTTON           ******************************* //
-function deleteTask(event, index) {
-    
-    // if (activeTasks[index]) {
-    //     Array.prototype.remove = function() {
-    //         let itemToDelete;
-    //         let funcArguments = arguments;
-    //         L = funcArguments.length;
-    //         let ax;
-
-    //         while (L && this.length) {
-    //             itemToDelete = funcArguments[--L];
-
-    //             while ( (ax = this.indexOf(itemToDelete)) !== -1 ) {
-    //                 this.splice(ax, 1)
-                    
-    //                 if (event.target.nodeName === "BUTTON") {
-    //                     event.parentNode.removeChild(event.target.parentNode)
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     console.log(`${activeTasks[index]} deleted.`);
-        
-    // }
-
-    // activeTasks.remove(activeTasks[index])
-}
-
-function deleteTask() {
-    let deleteButtonCollection = document.getElementsByClassName("delete-button")
-
-    for (let index = 0; index < deleteButtonCollection.length; index++) {
-        let button = deleteButtonCollection[index]
-
-        button.addEventListener('click', () => {
-            activeListContainer.removeChild(button.parentNode)
-        })
-    }
-}
-
 function addTask(index, title, description) {
 
     let activeList = {
@@ -133,32 +91,96 @@ function addTask(index, title, description) {
     clearTextFields()
 }
 
+// **********************           DELETE BUTTON           ******************************* //
+function deleteTask() {
+    let deleteButtonCollection = document.getElementsByClassName("delete-button")
+
+    for (let index = 0; index < deleteButtonCollection.length; index++) {
+        let button = deleteButtonCollection[index]
+
+        button.addEventListener('click', () => {
+            activeListContainer.removeChild(button.parentNode)
+            activeTasks.splice(index, 1)
+        })
+    }
+}
+
+
 function completeTask() {
 
     const completedButtonCollection = document.getElementsByClassName('complete-button')
 
     for (let i = 0; i < completedButtonCollection.length; i++) {
-        const button = completedButtonCollection[i];
+        const button = completedButtonCollection[i]
         
-        button.addEventListener('click', () => {
+        document.getElementsByClassName('complete-button')[i].addEventListener('click', () => {
+            completedTasks.push(activeTasks[i])
+            completedTasks[i].status = "completed"
+
+            
+            console.log(completedButtonCollection);
+
+            moveToCompleteList(completedTasks[i])
+            activeTasks.splice(i, 1)
             activeListContainer.removeChild(button.parentNode)
+
+            
         })
     }
+}
 
-    for (let i = 0; i < activeTasks.length; i++) {
-        const element = activeTasks[i];
-        
-        // if (selectedTask === element) {
-        //     element.status = "completed"
-        //     completedTasks.push(element)
-        //     console.log(element);
-            
-        // }
+function moveToCompleteList(task) {
+
+    let descriptionExists = false
+
+    const completedTaskContainer = document.createElement('div')
+    completedTaskContainer.classList.add('task')
+    completedTaskContainer.classList.add('completed-task')
+    completeListContainer.appendChild(completedTaskContainer)
+
+    const undoButton = document.createElement('button')
+    undoButton.classList.add('undo-button')
+    
+    const undoIcon = document.createElement('i')
+    undoIcon.classList.add('fa-solid')
+    undoIcon.classList.add('fa-arrow-rotate-left')
+    undoIcon.classList.add('undo')
+
+    undoButton.appendChild(undoIcon)
+    completedTaskContainer.appendChild(undoButton)
+
+    const taskInformationContainer = document.createElement('div')
+    taskInformationContainer.classList.add('task-information')
+    taskInformationContainer.classList.add('completed-task-information')
+
+    const taskTitle = document.createElement('p')
+    taskTitle.classList.add('task-title')
+    taskTitle.innerText = task.title
+
+    const taskDescription = document.createElement('p')
+
+    if (task.description !== '') {
+        taskDescription.innerText = task.description
+        taskDescription.classList.add('task-description')
+        descriptionExists = true
     }
+
+    taskInformationContainer.appendChild(taskTitle)
+
+    if (descriptionExists) {
+        taskInformationContainer.appendChild(taskDescription)
+    }
+
+    completedTaskContainer.appendChild(taskInformationContainer)
+
+
 }
 
 // add UI elements for active task item
 function displayActiveList() {
+
+    let descriptionExists = false
+
     for (let i = 0; i < activeTasks.length; i++) {
         const activeTask = document.createElement('div')
         activeTask.classList.add('task')
@@ -184,12 +206,21 @@ function displayActiveList() {
         taskTitle.classList.add('task-title')
         taskTitle.innerText = activeTasks[i].title
 
-        const taskDescription = document.createElement('p')
-        taskDescription.classList.add('task-description')
-        taskDescription.innerText = activeTasks[i].description
-
         taskInformationContainer.appendChild(taskTitle)
-        taskInformationContainer.appendChild(taskDescription)
+
+        const taskDescription = document.createElement('p')
+
+        if (activeTasks[i].description !== '') {
+            taskDescription.classList.add('task-description')
+            taskDescription.innerText = activeTasks[i].description
+            descriptionExists = true
+        }
+
+
+        if (descriptionExists) {
+            taskInformationContainer.appendChild(taskDescription)
+        }
+
         activeTask.appendChild(taskInformationContainer)
 
 
