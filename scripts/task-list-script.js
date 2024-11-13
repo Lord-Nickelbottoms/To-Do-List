@@ -7,7 +7,7 @@ let taskDescription = document.getElementById("description")
 let activeTasks = [];
 let completedTasks = [];
 
-const apiUrl = 'http://localhost:3001/'
+const apiUrl = 'http://localhost:3000/api/'
 
 
 // **********************           DOCUMENT/WINDOW EVENTS            ******************************* //
@@ -87,6 +87,7 @@ function addTask(index, title, description) {
     localStorage.removeItem("")
 
     activeTasks.push(activeList)
+    createTask(activeList).then(r => console.warn(r))
     // localStorage.setItem(`item${index}`, JSON.stringify(activeTasks[index]))
 
     closeAddTaskWindow()
@@ -262,8 +263,8 @@ function closeAddTaskWindow() {
 // **********************           GET REQUEST            ******************************* //
 function getList() {
     // Define the API URL
-    const route = apiUrl + 'get-list';
-
+    const route = apiUrl + 'tasks';
+    console.log(route);
 // Make the API request
     fetch(route)
         .then(response => {
@@ -311,4 +312,21 @@ async function deleteTask(id) {
         console.error(`Error: ${error}`);
         
     })
+}
+
+
+// ***************************           CREATE REQUEST            ******************************* //
+async function createTask(task) {
+    
+    const finalUrl = apiUrl + '/api/new-task'
+    
+    // if (!title) return alert("Title cannot be empty");
+
+    await fetch(finalUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: task.title, description: task.description, status: 'active' }),
+    });
+    document.getElementById('newTask').value = '';
+    getList();
 }
