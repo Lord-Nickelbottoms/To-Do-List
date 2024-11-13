@@ -95,11 +95,11 @@ function addTask(index, title, description) {
 
 // **********************           DELETE BUTTON           ******************************* //
 function deleteActiveTask() {
-    let deleteButtonCollection = document.getElementsByClassName("delete-button")
+    let deleteButtonCollection;
 
-    for (let index = 0; index < deleteButtonCollection.length; index++) {
+    for (let index = 0; index < activeTasks.length; index++) {
+        deleteButtonCollection = document.getElementsByClassName("delete-button")
         let button = deleteButtonCollection[index]
-
         button.addEventListener('click', () => {
             activeListContainer.removeChild(button.parentNode)
             activeTasks.splice(index, 1)
