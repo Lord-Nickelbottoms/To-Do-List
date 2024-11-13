@@ -7,6 +7,8 @@ let taskDescription = document.getElementById("description")
 let activeTasks = [];
 let completedTasks = [];
 
+const apiUrl = 'http://localhost:3001/'
+
 
 // **********************           DOCUMENT/WINDOW EVENTS            ******************************* //
 // var observeDOM = (function() {
@@ -92,7 +94,7 @@ function addTask(index, title, description) {
 }
 
 // **********************           DELETE BUTTON           ******************************* //
-function deleteTask() {
+function deleteActiveTask() {
     let deleteButtonCollection = document.getElementsByClassName("delete-button")
 
     for (let index = 0; index < deleteButtonCollection.length; index++) {
@@ -101,6 +103,7 @@ function deleteTask() {
         button.addEventListener('click', () => {
             activeListContainer.removeChild(button.parentNode)
             activeTasks.splice(index, 1)
+            deleteTask(activeTasks[index].id)
         })
     }
 }
@@ -237,7 +240,7 @@ function displayActiveList() {
     }
 
     // apply functions to buttons
-    deleteTask()
+    deleteActiveTask()
     completeTask()
 }
 
@@ -259,10 +262,10 @@ function closeAddTaskWindow() {
 // **********************           GET REQUEST            ******************************* //
 function getList() {
     // Define the API URL
-    const apiUrl = 'http://localhost:3001/get-list';
+    const route = apiUrl + 'get-list';
 
 // Make the API request
-    fetch(apiUrl)
+    fetch(route)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response error: ${response.status}`);
@@ -286,4 +289,26 @@ function getList() {
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+}
+
+// ***************************           DELETE REQUEST            ******************************* //
+async function deleteTask(id) {
+    const route = apiUrl + `api/delete-task/${id}`
+
+    await fetch(route, {
+        method: 'DELETE'
+    }).then ( async (response) => {
+        if (!response.ok) {
+            throw new Error(`Network response error: ${response.status}`)
+        } else {
+            const isJson = response.headers.get('content-type')?.includes('application/json')
+            const data = isJson && await response.json()
+            console.log(data);
+            
+        }
+    })
+    .catch(error => {
+        console.error(`Error: ${error}`);
+        
+    })
 }
