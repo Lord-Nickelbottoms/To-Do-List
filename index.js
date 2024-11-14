@@ -80,6 +80,24 @@ app.post('/api/new-task', async (request, response) => {
     }
 });
 
+// PUT request to mark as completed
+app.put('/api/update-task/:id', async (request, response) => {
+    const { _id } = request.body
+
+    if(!_id) {
+        response.status(404).json( { error: 'That ID does not exist. Please try again.' } )
+    }
+
+    try {
+        const result = await toDoCollection.update( { '_id': ObjectId(request.session.loggedIn) },
+    {$set: {status: "completed"}}, (error, result) => {
+        console.log(result);
+    })
+    } catch (error) {
+        response.json( { error: 'Error updating record'} )
+    }
+})
+
 // DELETE request
 app.delete('/api/delete-task/:id', async (request, response) => {
     const { id } = request.params;
