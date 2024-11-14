@@ -4,6 +4,7 @@ const completeListContainer = document.querySelector('.completed-task-list')
 let taskTitle = document.getElementById("title")
 let taskDescription = document.getElementById("description")
 
+let taskList = []
 let activeTasks = [];
 let completedTasks = [];
 
