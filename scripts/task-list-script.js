@@ -12,39 +12,6 @@ const apiUrl = 'http://localhost:3000/api/'
 
 
 // **********************           DOCUMENT/WINDOW EVENTS            ******************************* //
-// var observeDOM = (function() {
-//     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-  
-//     return function(obj, callback) {
-//       if (!obj || obj.nodeType !== 1) {
-//         return;
-//       }
-  
-//       if (MutationObserver) {
-//         // define a new observer
-//         var mutationObserver = new MutationObserver(callback);
-  
-//         // have the observer observe for changes in children
-//         mutationObserver.observe(obj, {childList: true, subtree: true});
-//         return mutationObserver;
-//       } else if (window.addEventListener) { // browser support fallback
-//         obj.addEventListener('DOMNodeInserted', callback, false);
-//         obj.addEventListener('DOMNodeRemoved', callback, false);
-//       }
-//     }
-//   })();
-
-  // Observe a specific DOM element:
-// observeDOM(listEl, function(m) {
-//     var addedNodes = [], removedNodes = [];
- 
-//     m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes));
- 
-//     m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes));
- 
-//     console.clear();
-//     console.log('Added:', addedNodes, 'Removed:', removedNodes);
-//  });
 window.addEventListener('load', () => {
     console.log("task-list-script loaded");
 
@@ -244,6 +211,34 @@ function displayActiveList(activeItemsList) {
 
         deleteButton.appendChild(deleteIcon)
         activeTask.appendChild(deleteButton)
+
+
+        // Edit Button
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit-button');
+        const editIcon = document.createElement('i');
+        editIcon.classList.add('fa-solid', 'fa-pencil'); // Font Awesome edit icon
+        editButton.appendChild(editIcon);
+        activeTask.appendChild(editButton);
+
+        // Event Listener for Edit Button
+        editButton.addEventListener('click', () => {
+            
+            // Pre-fill the title and description input fields
+            taskTitle.value = activeTasks[i].title;
+            taskDescription.value = activeTasks[i].description;
+
+            // Update the task on confirmation
+            document.getElementById('createButton').onclick = () => {
+                activeTasks[i].title = taskTitle.value;
+                activeTasks[i].description = taskDescription.value;
+
+                // Update in local storage and refresh the task display
+                localStorage.setItem(taskTitle.value, taskDescription.value);
+                activeListContainer.innerHTML = ''; // Clear active task container
+                displayActiveList(activeTasks); // Re-render updated task list
+            };
+        });
     }
 
     // apply functions to buttons
