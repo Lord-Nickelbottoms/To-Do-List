@@ -87,11 +87,9 @@ function addTask(index, title, description) {
     }
 
     console.log(activeTasks)
-    localStorage.removeItem("")
 
     activeTasks.push(activeList)
     createTask(activeList).then(r => console.warn(r))
-    // localStorage.setItem(`item${index}`, JSON.stringify(activeTasks[index]))
 
     closeAddTaskWindow()
     clearTextFields()
@@ -99,7 +97,6 @@ function addTask(index, title, description) {
 
 // **********************           DELETE BUTTON           ******************************* //
 function deleteActiveTask() {
-    let deleteButtonCollection;
 
     for (let index = 0; index < activeTasks.length; index++) {
         deleteButtonCollection = document.getElementsByClassName("delete-button")
