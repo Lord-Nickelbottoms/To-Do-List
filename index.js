@@ -81,10 +81,10 @@ app.post('/api/new-task', async (request, response) => {
 });
 
 // DELETE request
-app.delete('/api/task/:id', async (request, response) => {
+app.delete('/api/delete-task/:id', async (request, response) => {
     const { id } = request.params;
     try {
-        const result = await toDoCollection.deleteOne({ id: new ObjectId(id) });
+        const result = await toDoCollection.deleteOne({_id: new ObjectId(id) });
         response.json(result);
     } catch (err) {
         response.status(500).json({ error: err.message });
