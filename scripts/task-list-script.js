@@ -115,17 +115,20 @@ function deleteActiveTask() {
 
 function completeTask() {
 
-    const completedButtonCollection = document.getElementsByClassName('complete-button')
+    let completedButtonCollection
 
-    for (let i = 0; i < completedButtonCollection.length; i++) {
+    for (let i = 0; i < activeTasks.length; i++) {
+        completedButtonCollection = document.getElementsByClassName('complete-button')
         const button = completedButtonCollection[i]
-        
-        document.getElementsByClassName('complete-button')[i].addEventListener('click', () => {
-            completedTasks.push(activeTasks[i])
-            completedTasks[i].status = "completed"
 
+        completedButtonCollection.length = activeTasks.length
+        
+        button.addEventListener('click', () => {
+            activeTasks[i]["status"] = "completed"
+            console.log(activeTasks[i]);
             
-            console.log(completedButtonCollection);
+            completedTasks.push(activeTasks[i])
+            console.log(completedTasks[i])
 
             moveToCompleteList(completedTasks[i])
             activeTasks.splice(i, 1)
@@ -184,11 +187,11 @@ function moveToCompleteList(task) {
 }
 
 // add UI elements for active task item
-function displayActiveList() {
+function displayActiveList(activeItemsList) {
 
     let descriptionExists = false
 
-    for (let i = 0; i < activeTasks.length; i++) {
+    for (let i = 0; i < activeItemsList.length; i++) {
         const activeTask = document.createElement('div')
         activeTask.classList.add('task')
         activeTask.classList.add('active-task')
@@ -267,7 +270,6 @@ function closeAddTaskWindow() {
 function getList() {
     // Define the API URL
     const route = apiUrl + 'tasks';
-    console.log(route);
 // Make the API request
     fetch(route)
         .then(response => {
@@ -277,17 +279,21 @@ function getList() {
             return response.json();
         })
         .then(data => {
-            // Display the response data in the console
-            console.log('API Response:', data);
 
             // Display data on the webpage
-            activeTasks = data
-            displayActiveList()
-        })
-        .then(data => {
-            for (let index = 0; index < activeTasks.length; index++) {
-                const element = activeTasks[index];
-                console.log(element);
+            taskList = data
+
+            for (let i = 0; i < taskList.length; i++) {
+                let task = taskList[i];
+                
+                if (task["status"] === "completed") {
+                    completedTasks.push(task)
+                    activeTasks.splice(i, 1)
+                    moveToCompleteList(task)
+                } else {
+                    activeTasks.push(task)
+                    displayActiveList(activeTasks)
+                }
             }
         })
         .catch(error => {
@@ -296,8 +302,8 @@ function getList() {
 }
 
 // ***************************           DELETE REQUEST            ******************************* //
-async function deleteTask(id) {
-    const route = apiUrl + `api/delete-task/${id}`
+async function deleteTask(_id) {
+    const route = apiUrl + `delete-task/${_id}`
 
     await fetch(route, {
         method: 'DELETE'
@@ -321,9 +327,7 @@ async function deleteTask(id) {
 // ***************************           CREATE REQUEST            ******************************* //
 async function createTask(task) {
     
-    const finalUrl = apiUrl + '/api/new-task'
-    
-    // if (!title) return alert("Title cannot be empty");
+    const finalUrl = apiUrl + 'new-task'
 
     await fetch(finalUrl, {
         method: 'POST',
@@ -332,4 +336,10 @@ async function createTask(task) {
     });
     document.getElementById('newTask').value = '';
     getList();
+}
+
+async function setCompleted(_id) {
+    const finalUrl = apiUrl + `update-task/${id}`
+
+    
 }
