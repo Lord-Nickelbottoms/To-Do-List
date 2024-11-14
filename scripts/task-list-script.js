@@ -49,7 +49,7 @@ window.addEventListener('load', () => {
     console.log("task-list-script loaded");
     
     // load from storage or server
-    if (!Array.isArray(activeTasks) || !activeTasks.length) {
+    if (!Array.isArray(taskList) || !taskList.length) {
         // array does not exist, is not an array, or is empty
         // ⇒ do not attempt to process array
         console.log("List is empty")
