@@ -1,0 +1,230 @@
+@import url('colors.css');
+@import url('animations.css');
+@import url('fonts.css');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: whitesmoke;
+    transition: 0.2s all;
+    text-transform: uppercase;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+body {
+    background-image: url("/styles/images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 5px 0 2px 0;
+    color: whitesmoke;
+}
+
+input::placeholder {
+    font-weight: 500;
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+button:hover, button i:hover {
+    cursor: pointer;
+    color: #7c7c7c;
+}
+
+/* ************   Classes   ************* */
+
+.main-heading {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 0 20px;
+}
+
+.card-container {
+    width: 90%;
+    margin-top: 30pt;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 25px;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.task {
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px 15px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 50px     ;
+}
+
+
+.form-button {
+    margin-left: auto;
+    margin-top: 10px;
+    padding: 8px 10px;
+    color: var(--licorice);
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 80px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.complete-button {
+    padding: 5px;
+    font-size: 1.3em;
+}
+
+.fa-check {
+    color: var(--licorice);
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2px;
+}
+
+.task-title {
+    font-size: 0.9rem;
+    color: var(--licorice);
+    flex-grow: 3;
+    text-align: center;
+    font-weight: 700;
+}
+
+.task-description {
+    font-size: 0.8rem;
+    color: var(--licorice);
+    flex-grow: 2;
+    text-align: center;
+    border-top: 1px solid var(--licorice);
+    font-weight: 500;
+}
+
+.completed-task-information {
+    flex-grow: 2;
+}
+
+.fa-trash-can {
+    color: var(--licorice);
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+}
+
+.fa-pencil {
+    color: var(--licorice);
+    font-size: 1.3rem;
+}
+
+.undo {
+    color: var(--licorice);
+    font-size: 1.3rem;
+}
+
+.undo-button {
+    padding: 5px;
+}
+
+.delete-button {
+    padding: 5px;
+}
+
+/* ******************   Add new task container  ******************** */
+#addTaskWindow {
+    display: none;
+    position: fixed;
+    width: 90%;
+
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-task-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--licorice);
+    font-size: 1.5rem;
+}
+
+.add-task-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 15px 0;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.add-task-button {
+    padding: 12px 20px;
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    color: var(--licorice);
+    font-size: 1.6rem;
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 80px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.add-task-button:hover {
+    background: rgba(255, 255, 255, 0.76);
+}
+
+/* ******************   Edit task container  ******************** */
+#editTaskWindow {
+    display: none;
+}
