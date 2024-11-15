@@ -79,20 +79,21 @@ function deleteActiveTask() {
 
 function completeTask() {
     for (let i = 0; i < activeTasks.length; i++) {
+        let completedButtonCollection = 0;
         completedButtonCollection = document.getElementsByClassName('complete-button')
         const button = completedButtonCollection[i]
 
-        completedButtonCollection.length = activeTasks.length
+        const task = activeTasks[i]
         
         button.addEventListener('click', () => {
-            activeTasks[i]["status"] = "completed"
-            console.log(activeTasks[i]);
+            task["status"] = "completed"
             
-            completedTasks.push(activeTasks[i])
-            console.log(completedTasks[i])
+            completedTasks.push(task)
 
-            moveToCompleteList(completedTasks[i])
-            activeTasks.splice(i, 1)
+            moveToCompleteList(task)
+
+            activeTasks.splice(task, 1)
+
             activeListContainer.removeChild(button.parentNode)
 
             setCompleted(task["_id"])
