@@ -33,6 +33,10 @@ input {
     color: whitesmoke;
 }
 
+input::placeholder {
+    font-weight: 500;
+}
+
 button {
     background: none;
     border: none;
@@ -105,6 +109,7 @@ button:hover, button i:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 2px;
 }
 
 .task-title {
