@@ -333,5 +333,10 @@ async function createTask(task) {
 async function setCompleted(_id) {
     const finalUrl = apiUrl + `update-task/${id}`
 
-    
+    const response = await fetch(finalUrl, {
+        method: 'PUT',
+    });
+
+    const data = await response.json();  // Ensure this is awaited
+    console.log(data);  // Log the response data
 }
