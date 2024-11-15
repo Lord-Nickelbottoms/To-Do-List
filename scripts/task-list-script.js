@@ -209,9 +209,10 @@ function displayActiveList(activeItemsList) {
 
         // Edit Button
         const editButton = document.createElement('button');
+        editButton.classList.add('delete-button');
         editButton.classList.add('edit-button');
         const editIcon = document.createElement('i');
-        editIcon.classList.add('fa-solid', 'fa-pencil'); // Font Awesome edit icon
+        editIcon.classList.add('fa-solid', 'fa-pencil');
         editButton.appendChild(editIcon);
         activeTask.appendChild(editButton);
 
