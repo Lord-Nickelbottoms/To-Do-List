@@ -17,8 +17,6 @@ app.use(cors())
 // this is Middleware
 app.use(bodyParser.json())
 
-
-
 // MongoDB config
 const url = 'mongodb+srv://superuser:BHLArNu4nDnnqhUO@cluster0.hmfb7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 // const client = new MongoClient(url)
@@ -59,7 +57,7 @@ app.get('/api/tasks', async (request, response) => {
     }
 })
 
-// POST request to add a new user
+// POST request to add a new task
 app.post('/api/new-task', async (request, response) => {
     const { title, description } = request.body;
     if (!title) {
@@ -85,7 +83,7 @@ app.put('/api/update-task/:id', async (request, response) => {
     const { id } = request.params;
     const objectId = new ObjectId(id)
 
-    // If the ID is missing, return an error and stop further execution
+
     if (!id) {
         return response.status(404).json({ error: 'That ID does not exist. Please try again.' });
     }
@@ -96,15 +94,46 @@ app.put('/api/update-task/:id', async (request, response) => {
             { $set: { status: 'completed' } }
         );
 
-        // Respond with the result of the update
         response.json({ message: 'Task updated successfully', result });
     } catch (error) {
-        // Handle errors and send the error response
-        console.error(error); // It's a good idea to log the error for debugging purposes
+        console.error(error);
         response.status(500).json({ error: 'Error updating record' });
     }
 });
 
+// PUT request to edit task data
+app.put('/api/edit-task/:id', async (req, res) => {
+    const { id } = req.params; //
+    const { title, description } = req.body;
+
+    
+    if (!title) {
+        return res.status(400).json({ error: 'Title is required.' });
+    }
+
+    try {
+        const result = await toDoCollection.updateOne(
+            { _id: new ObjectId(id) },
+            {
+                $set: {
+                    title: title,
+                    description: description,
+                },
+            }
+        );
+
+        
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ error: 'Task not found or no changes made.' });
+        }
+
+        
+        res.json({ message: 'Task updated successfully', result });
+    } catch (error) {
+        console.error('Error updating task:', error);
+        res.status(500).json({ error: 'Server error while updating the task' });
+    }
+});
 
 // DELETE request
 app.delete('/api/delete-task/:id', async (request, response) => {
@@ -117,7 +146,7 @@ app.delete('/api/delete-task/:id', async (request, response) => {
     }
 })
 
-// Start the server and initialize the database
+
 app.listen(port, async () => {
     await databaseConnection();
     console.log(`Server running on http://localhost:${port}`);
