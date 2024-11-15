@@ -9,7 +9,6 @@
   "version": "1.0.0",
   "description": "A To Do List that allows a user to add an item/task to a list.",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
