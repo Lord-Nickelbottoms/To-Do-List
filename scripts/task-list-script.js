@@ -14,9 +14,6 @@ const apiUrl = 'http://localhost:3000/api/'
 // **********************           DOCUMENT/WINDOW EVENTS            ******************************* //
 window.addEventListener('load', () => {
     console.log("task-list-script loaded");
-
-    getList()
-    
     // load from storage or server
     if (!Array.isArray(taskList) || !taskList.length) {
         // array does not exist, is not an array, or is empty
