@@ -178,7 +178,7 @@ function displayActiveList(activeItemsList) {
 
         const taskTitle = document.createElement('p')
         taskTitle.classList.add('task-title')
-        taskTitle.innerText = activeTasks[i].title
+        taskTitle.innerText = activeItemsList[i].title
 
         taskInformationContainer.appendChild(taskTitle)
 
@@ -186,7 +186,7 @@ function displayActiveList(activeItemsList) {
 
         if (activeTasks[i].description !== '') {
             taskDescription.classList.add('task-description')
-            taskDescription.innerText = activeTasks[i].description
+            taskDescription.innerText = activeItemsList[i].description
             descriptionExists = true
         }
 
@@ -241,6 +241,37 @@ function displayActiveList(activeItemsList) {
     deleteActiveTask()
     completeTask()
 }
+
+function preFill(task) {
+
+    const editTaskWindow = document.getElementById('editTaskWindow');
+    const taskTitle = document.getElementById('editTaskTitle');
+    const taskDescription = document.getElementById('editTaskDescription');
+    const taskId = document.getElementById('editTaskId');
+    
+    document.getElementById('saveEditedTaskButton').addEventListener('click', () => {
+
+        if (taskTitle.value) {
+            task["title"] = taskTitle.value
+            task["description"] = taskDescription.value
+
+            editTask(task)
+        }
+    })
+}
+
+function editTask(task) {
+    console.log(task)
+    editTaskData(task)
+    closeEditTaskWindow()
+}
+
+
+document.getElementById('cancelEditButton').addEventListener('click', () => {
+    document.getElementById("editTaskWindow").style.display = "none"
+    taskListWindows.style.display = "block"
+})
+
 
 function clearTextFields() {
     taskTitle.value = ""
