@@ -33,7 +33,6 @@ document.getElementById('createButton').addEventListener('click', () => {
         }
         
         addTask(indexId, taskTitle.value.toString(), taskDescription.value.toString(), indexId)
-        localStorage.setItem(taskTitle.value.toString(), taskDescription.value.toString())
 
         closeAddTaskWindow()
     } else {
