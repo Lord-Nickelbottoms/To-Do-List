@@ -207,7 +207,6 @@ function displayActiveList(activeItemsList) {
         activeTask.appendChild(deleteButton)
 
 
-        // Edit Button
         const editButton = document.createElement('button');
         editButton.classList.add('delete-button');
         editButton.classList.add('edit-button');
@@ -216,7 +215,8 @@ function displayActiveList(activeItemsList) {
         editButton.appendChild(editIcon);
         activeTask.appendChild(editButton);
 
-        // Event Listener for Edit Button
+        const task = activeTasks[i];
+        
         editButton.addEventListener('click', () => {
             if (editTaskWindow.style.display === 'none') {
                 taskListWindows.style.display = "none";
