@@ -1,0 +1,6 @@
+# Ignore the node_modules folder
+node_modules/
+
+# Make sure package.json and package-lock.json are not ignored
+!package.json
+!package-lock.json
