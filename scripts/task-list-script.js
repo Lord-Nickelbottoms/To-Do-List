@@ -279,6 +279,7 @@ function clearTextFields() {
     taskDescription.textContent = ""
     
     closeAddTaskWindow()
+    refreshTaskList()
 }
 
 function closeEditTaskWindow() {
@@ -293,6 +294,7 @@ function closeAddTaskWindow() {
 
 // **********************           REFRESH UI            ******************************* //
 function refreshTaskList() {
+    location.reload()
     activeListContainer.innerHTML = '';
     displayActiveList(activeTasks);
 }
@@ -364,8 +366,8 @@ async function createTask(task) {
         body: JSON.stringify({ title: task.title, description: task.description, status: 'active' }),
     });
     document.getElementById('newTask').value = '';
-    getList();
     refreshTaskList()
+    getList();
 }
 
 // ***************************           MARK AS COMPLETED REQUEST            ******************************* //
@@ -377,6 +379,7 @@ async function setCompleted(id) {
     });
 
     const data = await response.json();
+    refreshTaskList()
 }
 
 // ***************************           EDIT REQUEST            ******************************* //
@@ -406,4 +409,6 @@ async function editTaskData(task) {
 
         return response.json()
     })
+
+    refreshTaskList()
 }
