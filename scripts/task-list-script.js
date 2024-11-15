@@ -344,7 +344,7 @@ async function deleteTask(_id) {
             const isJson = response.headers.get('content-type')?.includes('application/json')
             const data = isJson && await response.json()
             console.log(data);
-            
+            refreshTaskList()
         }
     })
     .catch(error => {
@@ -352,7 +352,6 @@ async function deleteTask(_id) {
         
     })
 }
-
 
 // ***************************           CREATE REQUEST            ******************************* //
 async function createTask(task) {
@@ -366,6 +365,7 @@ async function createTask(task) {
     });
     document.getElementById('newTask').value = '';
     getList();
+    refreshTaskList()
 }
 
 // ***************************           MARK AS COMPLETED REQUEST            ******************************* //
