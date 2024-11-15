@@ -299,10 +299,9 @@ function refreshTaskList() {
 
 // **********************           GET REQUEST            ******************************* //
 function getList() {
-    // Define the API URL
-    const route = apiUrl + 'tasks';
-// Make the API request
-    fetch(route)
+    const finalUrl = apiUrl + 'tasks';
+    
+    fetch(finalUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response error: ${response.status}`);
