@@ -291,6 +291,12 @@ function closeAddTaskWindow() {
     taskListWindows.style.display = "block"
 }
 
+// **********************           REFRESH UI            ******************************* //
+function refreshTaskList() {
+    activeListContainer.innerHTML = '';
+    displayActiveList(activeTasks);
+}
+
 // **********************           GET REQUEST            ******************************* //
 function getList() {
     // Define the API URL
