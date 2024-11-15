@@ -220,22 +220,21 @@ function displayActiveList(activeItemsList) {
 
         // Event Listener for Edit Button
         editButton.addEventListener('click', () => {
+            if (editTaskWindow.style.display === 'none') {
+                taskListWindows.style.display = "none";
+                editTaskWindow.style.display = 'block';
+
+                preFill(task)
+            } else {
+                taskListWindows.style.display = "block";
+                editTaskWindow.style.display = 'none';
+            }
             
-            // Pre-fill the title and description input fields
-            taskTitle.value = activeTasks[i].title;
-            taskDescription.value = activeTasks[i].description;
+            
+            activeListContainer.innerHTML = '';
+            displayActiveList(activeTasks);
+    });
 
-            // Update the task on confirmation
-            document.getElementById('createButton').onclick = () => {
-                activeTasks[i].title = taskTitle.value;
-                activeTasks[i].description = taskDescription.value;
-
-                // Update in local storage and refresh the task display
-                localStorage.setItem(taskTitle.value, taskDescription.value);
-                activeListContainer.innerHTML = ''; // Clear active task container
-                displayActiveList(activeTasks); // Re-render updated task list
-            };
-        });
     }
 
     // apply functions to buttons
