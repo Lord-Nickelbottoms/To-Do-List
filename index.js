@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient, ObjectId, ServerApiVersion} = require('mongodb');
+const path = require('path')
 
 // used to read JSON data sent from client applications
 const bodyParser = require('body-parser');
@@ -16,6 +17,10 @@ app.use(cors())
 // use the body-parser module to accept and read JSON data in incoming requests
 // this is Middleware
 app.use(bodyParser.json())
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(express.static(__dirname + '/styles'));
 
 // MongoDB config
 const url = 'mongodb+srv://superuser:BHLArNu4nDnnqhUO@cluster0.hmfb7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -40,6 +45,10 @@ const databaseConnection = async  () => {
         console.error(`Failed to connect to MongoDB: ${error}`);
     }
 }
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
 
 // GET request
 app.get('/api/tasks', async (request, response) => {
