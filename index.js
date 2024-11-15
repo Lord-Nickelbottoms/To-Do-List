@@ -82,21 +82,29 @@ app.post('/api/new-task', async (request, response) => {
 
 // PUT request to mark as completed
 app.put('/api/update-task/:id', async (request, response) => {
-    const { _id } = request.body
+    const { id } = request.params;
+    const objectId = new ObjectId(id)
 
-    if(!_id) {
-        response.status(404).json( { error: 'That ID does not exist. Please try again.' } )
+    // If the ID is missing, return an error and stop further execution
+    if (!id) {
+        return response.status(404).json({ error: 'That ID does not exist. Please try again.' });
     }
 
     try {
-        const result = await toDoCollection.update( { '_id': ObjectId(request.session.loggedIn) },
-    {$set: {status: "completed"}}, (error, result) => {
-        console.log(result);
-    })
+        const result = toDoCollection.updateOne(
+            { '_id': objectId },
+            { $set: { status: 'completed' } }
+        );
+
+        // Respond with the result of the update
+        response.json({ message: 'Task updated successfully', result });
     } catch (error) {
-        response.json( { error: 'Error updating record'} )
+        // Handle errors and send the error response
+        console.error(error); // It's a good idea to log the error for debugging purposes
+        response.status(500).json({ error: 'Error updating record' });
     }
-})
+});
+
 
 // DELETE request
 app.delete('/api/delete-task/:id', async (request, response) => {
