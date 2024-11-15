@@ -9,7 +9,12 @@
     color: whitesmoke;
     transition: 0.2s all;
     text-transform: uppercase;
-    font-family: "Tektur", sans-serif;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+h1 {
+    font-weight: 700;
 }
 
 body {
@@ -106,9 +111,8 @@ button:hover, button i:hover {
     font-size: 0.9rem;
     color: var(--licorice);
     flex-grow: 3;
-    border-bottom: 1px solid var(--licorice);
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .task-description {
@@ -116,6 +120,7 @@ button:hover, button i:hover {
     color: var(--licorice);
     flex-grow: 2;
     text-align: center;
+    border-top: 1px solid var(--licorice);
 }
 
 .completed-task-information {
@@ -138,6 +143,10 @@ button:hover, button i:hover {
 .undo {
     color: var(--licorice);
     font-size: 1.3rem;
+}
+
+.undo-button {
+    padding: 5px;
 }
 
 .delete-button {
