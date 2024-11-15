@@ -68,6 +68,22 @@ button:hover, button i:hover {
     border-radius: 50px     ;
 }
 
+
+.form-button {
+    margin-left: auto;
+    margin-top: 10px;
+    padding: 8px 10px;
+    color: var(--licorice);
+
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 80px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
 .complete-button {
     padding: 5px;
     font-size: 1.3em;
@@ -89,7 +105,7 @@ button:hover, button i:hover {
 .task-title {
     font-size: 0.9rem;
     color: var(--licorice);
-    flex-grow: 2;
+    flex-grow: 3;
     border-bottom: 1px solid var(--licorice);
     text-align: center;
     font-weight: bold;
@@ -112,6 +128,11 @@ button:hover, button i:hover {
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
+}
+
+.fa-pencil {
+    color: var(--licorice);
+    font-size: 1.3rem;
 }
 
 .undo {
@@ -160,22 +181,6 @@ button:hover, button i:hover {
     padding: 5px 0;
 }
 
-#createButton {
-    margin-left: auto;
-    margin-top: 10px;
-    padding: 8px 10px;
-    color: var(--licorice);
-
-    /* From https://css.glass */
-    background: rgba(255, 255, 255, 0.76);
-    border-radius: 80px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.44);
-}
-
-
 .add-task-button {
     padding: 12px 20px;
     position: fixed;
@@ -195,4 +200,9 @@ button:hover, button i:hover {
 
 .add-task-button:hover {
     background: rgba(255, 255, 255, 0.76);
+}
+
+/* ******************   Edit task container  ******************** */
+#editTaskWindow {
+    display: none;
 }

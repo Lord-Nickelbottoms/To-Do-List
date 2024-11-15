@@ -38,6 +38,31 @@
 
     </div>
 
+    <!-- Component to edit an existing task -->
+    <div class="card-container add-task-card-container" id="editTaskWindow">
+        
+        <div class="add-task-header">
+            <h2>Edit Task</h2>
+        </div>
+
+        <form id="editTaskForm" action="put" class="add-task-container">
+            <input type="hidden" id="editTaskId"> <!-- Hidden field to store task ID -->
+            
+            <div class="input-section">
+                <label for="editTaskTitle">Edit Title</label>
+                <input type="text" id="editTaskTitle" name="editTaskTitle" placeholder="Task title" required>
+            </div>
+
+            <div class="input-section">
+                <label for="editTaskDescription">Edit Description</label>
+                <input id="editTaskDescription" name="editTaskDescription" placeholder="Task description"></input>
+            </div>
+
+            <button type="button" class="form-button" id="saveEditedTaskButton">Save Changes</button>
+            <button type="button" class="form-button" id="cancelEditButton">Cancel</button>
+        </form>
+    </div>
+
     <!-- Component to add a new task  -->
     <div class="card-container add-task-card-container" id="addTaskWindow">
 
@@ -58,7 +83,7 @@
                 <input type="text" id="description" name="description" placeholder="Task Description">
             </div>
 
-            <button type="button" id="createButton">Create</button>
+            <button type="button" class="form-button" id="createButton">Create</button>
         </form>
     </div>
 
