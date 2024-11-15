@@ -78,9 +78,6 @@ function deleteActiveTask() {
 
 
 function completeTask() {
-
-    let completedButtonCollection
-
     for (let i = 0; i < activeTasks.length; i++) {
         completedButtonCollection = document.getElementsByClassName('complete-button')
         const button = completedButtonCollection[i]
