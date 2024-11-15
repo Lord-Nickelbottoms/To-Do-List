@@ -98,7 +98,7 @@ function completeTask() {
             activeTasks.splice(i, 1)
             activeListContainer.removeChild(button.parentNode)
 
-            
+            setCompleted(task["_id"])
         })
     }
 }
@@ -330,13 +330,42 @@ async function createTask(task) {
     getList();
 }
 
-async function setCompleted(_id) {
-    const finalUrl = apiUrl + `update-task/${id}`
+// ***************************           MARK AS COMPLETED REQUEST            ******************************* //
+async function setCompleted(id) {
+    const finalUrl = apiUrl + `update-task/${id}`;
 
     const response = await fetch(finalUrl, {
         method: 'PUT',
     });
 
-    const data = await response.json();  // Ensure this is awaited
-    console.log(data);  // Log the response data
+    const data = await response.json();
+}
+
+// ***************************           EDIT REQUEST            ******************************* //
+async function editTaskData(task) {
+    const finalUrl = apiUrl + `edit-task/${task["_id"]}`
+
+    const editedTask = {
+        title: task["title"],
+        description: task["description"]
+    }
+
+    await fetch(finalUrl, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(editedTask),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Network response error: ${response.status}`);
+        } else {
+            console.log('Task updated successfully:', result);
+            
+            document.getElementById('editTaskWindow').style.display = 'none';
+
+            refreshTaskList(); // re-render the task list
+        }
+
+        return response.json()
+    })
 }
