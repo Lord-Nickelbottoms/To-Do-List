@@ -49,6 +49,13 @@ button:hover, button i:hover {
 
 /* ************   Classes   ************* */
 
+.main-heading {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 0 20px;
+}
+
 .card-container {
     width: 90%;
     margin-top: 30pt;
