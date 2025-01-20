@@ -13,5 +13,7 @@ https://github.com/user-attachments/assets/6d520942-4e11-4a1f-a2d3-ef457a70c635
 - HTML
 - CSS
 - JavaScript
+- NodeJS
+- MongoDB Cluster (for the database)
 - Nuts and Bolts
 - Glue
